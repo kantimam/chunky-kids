@@ -1,58 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { connect } from 'react-redux';
+import {
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import './App.css';
+import Nav from './features/navigation/Nav';
+import { theme, darkTheme } from './features/theme/themes';
+import { CssBaseline, createMuiTheme } from '@material-ui/core';
+import { RootState } from './app/store';
+import LandingPage from './pages/LandingPage'
 
-function App() {
+interface Props {
+  isDark: boolean
+}
+
+function App({ isDark }: Props) {
+  /* useSelector hook might be more sexy but triggers 2 rerenders every time :/ */
+
+  const muiTheme = createMuiTheme(isDark ? darkTheme : theme)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <ThemeProvider theme={muiTheme}>
+      <CssBaseline />
+      <div className="App">
+        <Nav isDark={isDark} />
+        <main>
+          <LandingPage />
+        </main>
+      </div>
+    </ThemeProvider>
   );
 }
 
-export default App;
+const mapStateToProps = (state: RootState) => {
+  return { isDark: state.darkMode.isDark }
+}
+
+export default connect(mapStateToProps)(App);
