@@ -9,6 +9,7 @@ import { theme, darkTheme } from './features/theme/themes';
 import { CssBaseline, createMuiTheme } from '@material-ui/core';
 import { RootState } from './app/store';
 import LandingPage from './pages/LandingPage'
+import CreateRecipe from './features/create/CreateRecipe'
 
 interface Props {
   isDark: boolean
@@ -26,6 +27,7 @@ function App({ isDark }: Props) {
         <Nav isDark={isDark} />
         <main>
           <LandingPage />
+          <CreateRecipe />
         </main>
       </div>
     </ThemeProvider>
