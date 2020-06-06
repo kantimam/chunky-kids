@@ -2,16 +2,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk, RootState } from '../../app/store';
 import { apiScrapeRecipe } from '../../api/Recipe';
 
+/* most likely dead code since im handeling create form localy */
+
 interface RecipeFormState {
     scrapeQuery: string,
     scrapedRecipe: any,
-    error: any
+    error: any,
 }
 
 const initialState: RecipeFormState = {
     scrapeQuery: '',
     scrapedRecipe: { hello: "world" },
-    error: {}
+    error: {},
 };
 
 export const formSlice = createSlice({

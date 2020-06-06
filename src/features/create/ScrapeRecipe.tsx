@@ -1,23 +1,37 @@
 import * as React from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { scrapeRecipe } from './createRecipeSlice';
+import { scrapeRecipe, setScrapedData } from './createRecipeSlice';
+import { apiScrapeRecipe } from '../../api/Recipe';
+
+/* most likely dead code since im handeling scraping without redux in the createRecipeForm component now */
 
 export interface IAppProps {
     scrapeRecipe: (url: string) => any,
+    setScrapedData(data: any): void
 }
 
 class ScrapeRecipe extends React.Component<IAppProps> {
     state = {
-        recipeUrl: ""
+        recipeUrl: "",
+        error: null
     }
 
     onChange = (e: React.ChangeEvent<HTMLInputElement>) => this.setState({ [e.target.name]: e.target.value })
 
-    submitScrapeForm = (e: React.FormEvent) => {
+    submitScrapeForm = async (e: React.FormEvent) => {
         e.preventDefault();
         if (this.state.recipeUrl.length < 6) return;
-        this.props.scrapeRecipe(this.state.recipeUrl)
+
+        try {
+            const data = await apiScrapeRecipe(this.state.recipeUrl);
+            const json = await data.json();
+            setScrapedData(json);
+        }
+        catch (e) {
+            console.log(e);
+            return this.setState({ error: "failed to import recipe" });
+        }
     }
 
     public render() {
@@ -36,7 +50,7 @@ class ScrapeRecipe extends React.Component<IAppProps> {
                     type="submit"
                 >
                     import
-                    </Button>
+                </Button>
             </form>
         );
     }

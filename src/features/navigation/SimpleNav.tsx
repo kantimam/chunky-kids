@@ -7,11 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Switch } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-import {
-    toggleDarkMode
 
-} from '../theme/darkModeSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Container, Button } from '@material-ui/core'
+import { CreateRecipeForm } from '../features/create/CreateRecipeForm'
 
 interface Props {
 
@@ -13,9 +15,9 @@ export default class CreateRecipePage extends Component<Props, State> {
 
     render() {
         return (
-            <div>
-
-            </div>
+            <Container>
+                <CreateRecipeForm />
+            </Container>
         )
     }
 }
