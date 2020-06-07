@@ -15,6 +15,7 @@ export const theme = createMuiTheme({
 
 
 export const darkTheme = createMuiTheme({
+    ...theme,
     palette: {
         type: "dark",
         primary: purple,

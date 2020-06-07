@@ -9,7 +9,8 @@ import { theme, darkTheme } from './features/theme/themes';
 import { CssBaseline, createMuiTheme } from '@material-ui/core';
 import { RootState } from './app/store';
 import LandingPage from './pages/LandingPage'
-import ScrapeRecipe from './features/create/ScrapeRecipe'
+import CreateRecipePage from './pages/CreateRecipePage'
+import { Switch, Route } from 'react-router-dom'
 
 interface Props {
   isDark: boolean
@@ -26,8 +27,15 @@ function App({ isDark }: Props) {
       <div className="App">
         <Nav isDark={isDark} />
         <main>
-          <LandingPage />
-          <ScrapeRecipe />
+          <Switch>
+
+            <Route path="/create">
+              <CreateRecipePage />
+            </Route>
+            <Route path="/">
+              <LandingPage />
+            </Route>
+          </Switch>
         </main>
       </div>
     </ThemeProvider>

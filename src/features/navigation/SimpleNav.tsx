@@ -6,8 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Switch } from '@material-ui/core';
-
+import { Switch/* , Link */ } from '@material-ui/core';
+import RouterLink from './RouterLink';
+//import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -20,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
         title: {
             flexGrow: 1,
         },
+        /* link: {
+            color: theme.palette.secondary
+        } */
     }),
 );
 
@@ -37,6 +41,13 @@ const SimpleNav = ({ isDark, toggleDark }: Props) => {
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                     <MenuIcon />
                 </IconButton>
+                <RouterLink className={classes.menuButton} to="/">
+                    home
+                </RouterLink>
+                <RouterLink className={classes.menuButton} to="/create">
+                    create
+                </RouterLink>
+
                 <Typography variant="h6" className={classes.title}>
                     News
                 </Typography>

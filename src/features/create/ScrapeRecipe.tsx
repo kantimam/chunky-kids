@@ -26,7 +26,7 @@ class ScrapeRecipe extends React.Component<IAppProps> {
         try {
             const data = await apiScrapeRecipe(this.state.recipeUrl);
             const json = await data.json();
-            setScrapedData(json);
+            this.props.setScrapedData(json);
         }
         catch (e) {
             console.log(e);
@@ -44,6 +44,11 @@ class ScrapeRecipe extends React.Component<IAppProps> {
                     variant="outlined"
                     value={this.state.recipeUrl}
                     onChange={this.onChange}
+                    label="import"
+                    placeholder="import recipe from url"
+                    size="small"
+                    error={this.state.error != null}
+                    helperText={this.state.error}
                 />
                 <Button
                     variant="contained"
