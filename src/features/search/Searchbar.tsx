@@ -1,18 +1,20 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import { TextFieldProps } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
+//import { SearchbarProps } from '../../types/types';
 
 interface ResponseDataType {
   name: string;
 }
 
 
-type SearchbarProps = {
+interface SearchbarProps {
   getOptions: (value: string) => Promise<Response>,
 }
 
-export default function Searchbar({ getOptions }: SearchbarProps) {
+export default function Searchbar(props: TextFieldProps & SearchbarProps) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<ResponseDataType[]>([]);
   const [loading, setLoading] = React.useState(false);
@@ -22,7 +24,7 @@ export default function Searchbar({ getOptions }: SearchbarProps) {
     if (reason === "input" && value) {
       // TODO add debounce
       setLoading(true)
-      const response = await getOptions(value)
+      const response = await props.getOptions(value)
         .catch(e => {
           console.log("failed to get response");
           setLoading(false);
@@ -57,13 +59,13 @@ export default function Searchbar({ getOptions }: SearchbarProps) {
       loading={loading}
       onInputChange={onInputChange}
 
-
       renderInput={(params) => (
         <TextField
           {...params}
+          {...props}
           label="Recipes"
           placeholder="Search for names, ingredients or types"
-          variant="outlined"
+          /* variant="outlined" */
           InputProps={{
             ...params.InputProps,
             endAdornment: (

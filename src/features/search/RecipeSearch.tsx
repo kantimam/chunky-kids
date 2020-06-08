@@ -1,4 +1,5 @@
 import Searchbar from './Searchbar'
+import { TextFieldProps } from '@material-ui/core';
 const BASE = 'http://localhost:5000'
 
 
@@ -8,4 +9,4 @@ const getPreviewAPI = (value: string): Promise<Response> => {
     return fetch(BASE + '/recipes?s=' + search);
 }
 
-export default (props: any) => Searchbar({ ...props, getOptions: getPreviewAPI })
+export default (props: TextFieldProps) => Searchbar({ ...props, getOptions: getPreviewAPI })
